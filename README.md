@@ -1,6 +1,6 @@
 # m6weeklytest5
 
-# Mini Calendar Web Application
+# Calendar Web Application
 
 This is a simple web application that displays the current day, date, month, and year. It provides users with a minimalistic and visually appealing way to check the date.
 
@@ -24,30 +24,31 @@ You can check out the live demo of the Mini Calendar [here](https://22pankajsahu
 
 Included relevant screenshots of the application here.
 
-![Screenshot 1](https://github.com/22pankajsahu/m6Day13HomeWorkChallenge/assets/135128502/a7ff0750-982f-4701-9512-64570f8cc4aa)
+![Screenshot wt5 1](https://github.com/22pankajsahu/m6weeklytest5/assets/135128502/94069d7e-891e-44f5-8c64-77f66a6c814a)
 
-![Screenshot 2](https://github.com/22pankajsahu/m6Day13HomeWorkChallenge/assets/135128502/49258dbb-9052-44bf-b75a-eec3d7a74974)
+![Screenshot wt5 2](https://github.com/22pankajsahu/m6weeklytest5/assets/135128502/63865b64-e393-4329-819f-f8e2ee354b94)
 
 ## Features
 
 - Displays the current month, day, date, and year.
+- User can search any particular day by giving input of date.
 - Minimalistic design with a clean user interface.
 - Easy to read and access date-related information.
 
 ## How it Works
 
-The Mini Calendar web application is built using HTML, CSS, and JavaScript. Here's a brief overview of how it works:
+The Calendar web application is built using HTML, CSS, and JavaScript. Here's a brief overview of how it works:
 
 ### HTML Structure
 
-The HTML structure defines the elements that make up the Mini Calendar:
+The HTML structure defines the elements that make up the Calendar:
 
 - A `calendar-container` div element to hold the date-related information.
 - Paragraph elements with distinct IDs (`month-name`, `day-name`, `day-number`, `year`) to display the month, day, date, and year.
 
 ### CSS Styling
 
-The CSS styles define the visual appearance of the Mini Calendar:
+The CSS styles define the visual appearance of the Calendar:
 
 - A centered and styled `calendar-container` with a white background, rounded corners, and a subtle shadow.
 - Stylish formatting for the month, day, date, and year elements to make them visually appealing and easy to read.
