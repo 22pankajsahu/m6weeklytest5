@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <meta name="author" content="PANKAJ SAHU">
+    <meta name="keywords" content="calendar, day, date, month, year.">
+    <meta name="description" content="A simple website allow user to display the calendar, day, date, month, year.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .main {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("https://farm6.staticflickr.com/5763/21737775276_a1ea6c1559_o.jpg") no-repeat;
+            background-size: cover;
+        }
+
+        .container {
+            width: 70%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0px 0px 8px white;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        header {
+            width: 96%;
+            height: 15%;
+            display: flex;
+            align-items: center;
+        }
+
+        .select-month,
+        .select-year {
+            font-size: larger;
+            padding: 1%;
+            margin-right: 2%;
+        }
+
+        .calender {
+            width: 96%;
+            height: 60%;
+        }
+
+        .week {
+            height: 15%;
+            display: flex;
+            justify-content: space-between;
+            font-size: larger;
+        }
+
+        .week li {
+            background-color: rgba(255, 69, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .week li:hover {
+            background-color: royalblue;
+            color: white;
+        }
+
+        .day {
+            height: 85%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .day .days {
+            width: calc(100% / 7);
+            text-align: center;
+            padding-top: 1.5%;
+            color: white;
+            cursor: pointer;
+        }
+
+        .day .days:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .active {
+            background-color: green;
+            border-radius: 5px;
+        }
+
+        .date {
+            width: 96%;
+            height: 15%;
+            display: flex;
+            align-items: center;
+        }
+
+        .EnterDate {
+            font-size: larger;
+            padding: 1%;
+            margin-right: 2%;
+            width: 20%;
+        }
+
+        .submit {
+            font-size: larger;
+            padding: 1%;
+            background-color: royalblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+            <header>
+                <select class="select-month">
+                    <option disabled selected>Select Month</option>
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <!-- Add options for other months -->
+                </select>
+                <select class="select-year">
+                    <option disabled selected>Select Year</option>
+                    <!-- Add options for years -->
+                </select>
+            </header>
+            <div class="calender">
+                <ul class="week">
+                    <li>sun</li>
+                    <li>mon</li>
+                    <li>tue</li>
+                    <li>wed</li>
+                    <li>thu</li>
+                    <li>fri</li>
+                    <li>sat</li>
+                </ul>
+                <ul class="day">
+                    <!-- Add days dynamically here using JavaScript -->
+                </ul>
+            </div>
+            <form class="date" onsubmit="ValidateDate(event)">
+                <label for="enterDate" class="sr-only">Enter Date</label>
+                <input type="number" id="enterDate" placeholder="Enter Date" min="1" max="31" required class="EnterDate">
+                <input type="submit" class="submit" value="Enter">
+            </form>
+        </div>
+    </div>
+    <script>
+        const daysList = document.querySelectorAll(".days");
+
+function dateOfFirstDay(month, year) {
+  daysList.forEach((ele) => {
+    ele.innerHTML = "";
+  });
+
+  const total = new Date(`${month + 1} 1, ${year} 23:15:30`);
+  const day = total.getDay();
+  fillDates(day, month, year);
+}
+
+function fillDates(day, month, year) {
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  let count = 1;
+
+  for (let i = day; i < daysInMonth + day; i++) {
+    daysList[i].innerText = count;
+    count++;
+  }
+
+  highlightColor();
+}
+
+function highlightColor() {
+  daysList.forEach((ele) => ele.classList.remove("active"));
+  const current = new Date();
+  const currentDate = current.getDate();
+
+  daysList.forEach((ele) => {
+    if (ele.innerHTML == currentDate) {
+      ele.classList.add("active");
+    }
+  });
+}
+
+function fillingYears() {
+  const yearList = document.querySelector(".select-year");
+
+  for (let i = 1900; i < 2100; i++) {
+    const option = document.createElement("option");
+    option.innerText = i;
+    yearList.appendChild(option);
+  }
+}
+
+function takeInputs() {
+  const selectedMonth = document.querySelector(".select-month").value;
+  const selectedYear = document.querySelector(".select-year").value;
+
+  if (selectedMonth === "Select Month") {
+    const newMonth = new Date().getMonth();
+    dateOfFirstDay(newMonth, +selectedYear);
+  } else if (selectedYear === "Select Year") {
+    const newYear = new Date().getFullYear();
+    dateOfFirstDay(+selectedMonth, newYear);
+  } else {
+    dateOfFirstDay(+selectedMonth, +selectedYear);
+  }
+}
+
+function validateDate(e) {
+  e.preventDefault();
+  const dateInput = document.querySelector(".EnterDate").value;
+  highlightColor(dateInput);
+}
+
+// Event listeners
+document.querySelector(".select-month").addEventListener("change", takeInputs);
+document.querySelector(".select-year").addEventListener("change", takeInputs);
+document.querySelector("form").addEventListener("submit", validateDate);
+
+// Initial setup
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth();
+const currentYear = currentDate.getFullYear();
+dateOfFirstDay(currentMonth, currentYear);
+fillingYears();
+highlightColor();
+
+    </script>
+</body>
+</html>
